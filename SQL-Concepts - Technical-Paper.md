@@ -133,8 +133,8 @@ This is PostgreSQL's default isolation level.
 ### Repeatable Read
 Provides a stable snapshot for the transaction, so repeated reads do not normally observe changes committed by other transactions after the transaction's snapshot was established.
 ## Serializable
-Provides the strongest isolation level.
-The result should be equivalent to transactions having executed serially in some order.
+- Provides the strongest isolation level.
+- The result should be equivalent to transactions having executed serially in some order.
 ---
-# 10. Triggers
+## 10. Triggers
 A trigger automatically executes a trigger function when a specified database event occurs.
