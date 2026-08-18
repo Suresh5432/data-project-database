@@ -95,12 +95,9 @@ ORDER BY SUM(extra_runs) DESC;
 
 SELECT bowler,ROUND((runs/overs),2) AS economy
 FROM (SELECT d.bowler,
-SUM(
-CASE
-WHEN d.wide_runs=0 AND d.noball_runs=0
-THEN 1
-ELSE 0
-END)/6.0 AS overs,
+count(*) 
+filter 
+(where d.wide_runs=0 AND d.noball_runs=0)/6.0 AS overs,
 SUM(
 d.total_runs-
 penalty_runs-
