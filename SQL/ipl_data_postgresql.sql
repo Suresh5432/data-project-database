@@ -79,7 +79,7 @@ ORDER BY season;
 -- 2. Number of matches won of all teams over all the years of IPL.
 
 SELECT 	winner, COUNT(*) FROM matches
-WHERE winner!=''
+WHERE winner is not null
 GROUP BY winner
 ORDER BY COUNT(*) DESC;
 
@@ -87,13 +87,13 @@ ORDER BY COUNT(*) DESC;
 
 SELECT d.bowling_team, SUM(extra_runs) AS extra_runs FROM matches m
 JOIN deliveries d ON m.matchid=d.matchid
-WHERE m.season='2016'
+WHERE m.season=2016
 GROUP BY d.bowling_team
 ORDER BY SUM(extra_runs) DESC;
 
 -- 4. For the year 2015 get the top economical bowlers.
 
-SELECT bowler,(runs/overs) AS economy
+SELECT bowler,ROUND((runs/overs),2) AS economy
 FROM (SELECT d.bowler,
 SUM(
 CASE
@@ -106,8 +106,8 @@ d.total_runs-
 penalty_runs-
 bye_runs-
 legbye_runs) AS runs
-FROM  matchesdata m
-JOIN deliveriesdata d ON d.matchid=m.matchid
+FROM  matches m
+JOIN deliveries d ON d.matchid=m.matchid
 WHERE m.season=2015
 GROUP BY bowler) AS economydata
 ORDER BY economy
